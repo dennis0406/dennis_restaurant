@@ -1,5 +1,7 @@
 package dennis.restaurantmanagement.models;
 
+import dennis.restaurantmanagement.connection.DbConnect;
+
 public class AdminAccount {
     private int id;
     private String username;
@@ -33,6 +35,13 @@ public class AdminAccount {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public AdminAccount() {
+        DbConnect connect =  new DbConnect();
+        this.id = connect.getListAccounts().get(0).getId();
+        this.username = connect.getListAccounts().get(0).getUsername();
+        this.password = connect.getListAccounts().get(0).getPassword();
     }
 }
 

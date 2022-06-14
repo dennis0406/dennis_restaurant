@@ -32,10 +32,9 @@ public class DbConnect {
                 list.add(new Product(
                         result.getInt(1),
                         result.getInt(2),
+                        result.getString(3),
                         result.getString(4),
-                        result.getString(4),
-                        result.getInt(5),
-                        result.getFloat(6)
+                        result.getFloat(5)
                 ));
 
             }

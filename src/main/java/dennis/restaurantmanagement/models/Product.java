@@ -1,11 +1,14 @@
 package dennis.restaurantmanagement.models;
 
+import dennis.restaurantmanagement.connection.DbConnect;
+
+import java.util.ArrayList;
+
 public class Product {
     private int id;
     private int id_category;
     private String name;
     private String image;
-    private int quantity;
     private float price;
 
 
@@ -41,13 +44,6 @@ public class Product {
         this.image = image;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public float getPrice() {
         return price;
@@ -59,12 +55,12 @@ public class Product {
 
 
 
-    public Product(int id, int id_category, String name, String image, int quantity, float price) {
+    public Product(int id, int id_category, String name, String image, float price) {
         this.id = id;
         this.id_category = id_category;
         this.name = name;
         this.image = image;
-        this.quantity = quantity;
         this.price = price;
     }
+
 }
