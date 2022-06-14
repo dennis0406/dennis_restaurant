@@ -26,3 +26,6 @@
 ### Difficults
 - Issue about the config and I have spend more a day to fix it.
 - Just learned about the tableview - I think the syntax was quite complex.
+### Videos demo link
+https://drive.google.com/drive/folders/15PyCp1DIaDg3GN-n77NSgh5KOKYA-TJ9?usp=sharing
+
