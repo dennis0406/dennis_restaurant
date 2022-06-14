@@ -3,16 +3,16 @@ package dennis.restaurantmanagement.connection;
 import dennis.restaurantmanagement.models.AdminAccount;
 import dennis.restaurantmanagement.models.Category;
 import dennis.restaurantmanagement.models.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbConnect {
-    public Connection conn;
-    public Connection getConnection(){
+    public static Connection conn;
+    public static Connection getConnection(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/storemanagement", "root", "");
@@ -45,6 +45,28 @@ public class DbConnect {
         return list;
     }
 
+    //Get table products
+    public static ObservableList<Product> getTableProducts(){
+        Connection conn = getConnection();
+        ObservableList<Product> productList = FXCollections.observableArrayList();
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM products");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                productList.add(new Product(
+                        Integer.parseInt(rs.getString("id")),
+                        Integer.parseInt(rs.getString("id_category")),
+                        rs.getString("name"),
+                        rs.getString("image"),
+                        Float.parseFloat(rs.getString("price"))
+                ));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+        return productList;
+    }
     //get list of categories
     public List<Category> getListCategories(){
         ArrayList<Category> list = new ArrayList<>();

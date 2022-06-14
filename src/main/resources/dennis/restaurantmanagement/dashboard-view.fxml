@@ -55,18 +55,24 @@
             <Font name="Monospaced Regular" size="15.0" />
          </font>
       </TextField>
-      <Button fx:id="btnCreate" layoutX="132.0" layoutY="340.0" mnemonicParsing="false" onAction="#btnCreate" prefHeight="30.0" prefWidth="194.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Create">
+      <Button fx:id="btnCreate" layoutX="31.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnCreate" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Create">
          <font>
             <Font name="Monospaced Regular" size="15.0" />
          </font>
       </Button>
-      <TableView fx:id="table" layoutX="371.0" layoutY="119.0" prefHeight="366.0" prefWidth="516.0">
+      <TableView fx:id="tableView" layoutX="371.0" layoutY="119.0" prefHeight="366.0" prefWidth="516.0">
         <columns>
-          <TableColumn fx:id="nameCl" prefWidth="83.199951171875" text="Name" />
-          <TableColumn fx:id="categoryCl" prefWidth="75.20004272460938" text="Category" />
-            <TableColumn fx:id="imageCl" prefWidth="229.5999755859375" text="Image" />
-            <TableColumn fx:id="priceCl" prefWidth="126.4000244140625" text="Price" />
+            <TableColumn fx:id="idCl" prefWidth="55.20001220703125" text="ID" />
+          <TableColumn fx:id="nameCl" prefWidth="124.80001831054688" text="Name" />
+          <TableColumn fx:id="categoryCl" text="Category" />
+            <TableColumn fx:id="imageCl" minWidth="0.0" prefWidth="169.5999755859375" text="Image" />
+            <TableColumn fx:id="priceCl" maxWidth="152.0" prefWidth="82.4000244140625" text="Price" />
         </columns>
       </TableView>
+      <Button fx:id="btnDelete" layoutX="203.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Delete">
+         <font>
+            <Font name="Monospaced Regular" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

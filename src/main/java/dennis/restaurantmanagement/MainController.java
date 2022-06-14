@@ -10,12 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
-import java.util.List;
+import java.io.IOException;
 
 public class MainController {
-
     @FXML
     private TextField ttUsername;
     @FXML
@@ -24,6 +22,7 @@ public class MainController {
     private Label ttError;
     @FXML
     private Button btnLogin;
+
 
     private String userName;
     private String password;
@@ -34,7 +33,7 @@ public class MainController {
         password = adminAccount.getPassword();
     }
 
-    public void login(ActionEvent event){
+    public void login(ActionEvent event) throws IOException {
         ttError.setText("");
         if (ttUsername.getText().isBlank() || ttPassword.getText().isBlank()){
             ttError.setText("Please fill in all blank!");
@@ -43,13 +42,15 @@ public class MainController {
         }else{
             var alert = new Alert(Alert.AlertType.INFORMATION, "Login success!");
             alert.showAndWait();
-            loginSuccess();
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+            stage.setTitle("Dashboard");
+            stage.setScene(new Scene(root, 920, 532));
         }
     }
 
-    public void loginSuccess(){
+    public void dashboardScreen(){
         try{
-
             Parent root = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
             Stage dashboardStage = new Stage();
             dashboardStage.initStyle(StageStyle.DECORATED);

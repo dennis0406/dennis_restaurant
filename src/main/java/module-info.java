@@ -8,4 +8,5 @@ module dennis.restaurantmanagement {
     exports dennis.restaurantmanagement;
     exports dennis.restaurantmanagement.controllers;
     opens dennis.restaurantmanagement.controllers to javafx.fxml;
+    opens dennis.restaurantmanagement.models to javafx.base ;
 }

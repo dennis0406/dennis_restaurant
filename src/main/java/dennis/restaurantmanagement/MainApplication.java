@@ -11,13 +11,15 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+    public Stage window;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-        primaryStage.initStyle(StageStyle.DECORATED);
-        primaryStage.setScene(new Scene(root, 520, 480));
-        primaryStage.show();
+        window.initStyle(StageStyle.DECORATED);
+        window.setScene(new Scene(root, 600, 400));
+        window.show();
     }
 
     public static void main(String[] args) {
