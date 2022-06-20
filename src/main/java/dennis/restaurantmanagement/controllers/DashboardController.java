@@ -3,21 +3,35 @@ package dennis.restaurantmanagement.controllers;
 import dennis.restaurantmanagement.MainController;
 import dennis.restaurantmanagement.connection.DbConnect;
 import dennis.restaurantmanagement.models.Product;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DashboardController implements Initializable {
+    public Button btnProducts;
+    public Button btnExit;
+    public Button btnCategories;
+    public Button btnOrders;
+    public AnchorPane dbProduct;
+    public AnchorPane dbCategory;
     MainController mainController = new MainController();
     ObservableList<Product> selected;
     Product clickedRow;
@@ -89,6 +103,7 @@ public class DashboardController implements Initializable {
                 alert.showAndWait();
                 resetText();
                 loadTable();
+                btnCreate.setText("Create");
             }catch (Exception e){
                 e.printStackTrace();
                 e.getCause();
@@ -100,15 +115,31 @@ public class DashboardController implements Initializable {
     void btnDelete(ActionEvent event) {
         selected = tableView.getSelectionModel().getSelectedItems();
         int idDel = selected.get(0).getId();
-        DbConnect connect = new DbConnect();
-        connect.deleteQuery("products", "id = " + idDel);
-        loadTable();
+        if(tableView.getSelectionModel().getSelectedItems().get(0) == null){
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Are you sure want to delete this product?");
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if (option.get() != ButtonType.OK) {
+            return;
+        }
+        try{
+            DbConnect connect = new DbConnect();
+            connect.deleteQuery("products", "id = " + idDel);
+            loadTable();
+            resetText();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        idCl.setCellValueFactory(features -> features.getValue().nameProperty());
+        dbCategory.setVisible(false);
        loadTable();
     }
 
@@ -135,6 +166,10 @@ public class DashboardController implements Initializable {
                         ttImage.setText(clickedRow.getImage());
                         ttPrice.setText(""+clickedRow.getPrice());
                         btnCreate.setText("Update");
+                    } else if (row.isEmpty() || (event.getButton()== MouseButton.PRIMARY
+                            && event.getClickCount() == 1)) {
+                        btnCreate.setText("Create");
+                        resetText();
                     }
                 });
                 return row ;
@@ -143,5 +178,31 @@ public class DashboardController implements Initializable {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
         }
 
+    }
+
+    public void btnOrders(ActionEvent actionEvent) {
+        dbCategory.setVisible(false);
+        dbProduct.setVisible(false);
+    }
+
+    public void btnCategories(ActionEvent actionEvent) {
+        dbProduct.setVisible(false);
+        dbCategory.setVisible(true);
+    }
+
+    public void btnExit(ActionEvent actionEvent) {
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public void btnProducts(ActionEvent event) {
+        dbProduct.setVisible(true);
+        dbCategory.setVisible(false);
+    }
+
+    public void btnCreateCategory(ActionEvent event) {
+    }
+
+    public void btnDeleteCategory(ActionEvent event) {
     }
 }
