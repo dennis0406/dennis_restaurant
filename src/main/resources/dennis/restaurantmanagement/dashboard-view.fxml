@@ -43,7 +43,7 @@
                   <TableColumn fx:id="nameCl" prefWidth="124.80001831054688" text="Name" />
                   <TableColumn fx:id="categoryCl" text="Category" />
                   <TableColumn fx:id="imageCl" minWidth="0.0" prefWidth="169.5999755859375" text="Image" />
-                  <TableColumn fx:id="priceCl" maxWidth="152.0" prefWidth="84.0" text="Price" />
+                  <TableColumn fx:id="priceCl" maxWidth="152.0" minWidth="7.199951171875" prefWidth="99.20000000000005" text="Price" />
                </columns>
             </TableView>
             <AnchorPane fx:id="formProduct" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">
@@ -102,12 +102,12 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dbCategory" layoutX="31.0" layoutY="68.0" prefHeight="406.0" prefWidth="882.0">
+      <AnchorPane fx:id="dbCategory" layoutX="31.0" layoutY="68.0" prefHeight="406.0" prefWidth="635.0">
          <children>
             <TableView fx:id="tableViewCategory" layoutX="341.0" layoutY="10.0" prefHeight="366.0" prefWidth="303.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde); -fx-background-radius: 10px; -fx-border-radius: 10px;">
                <columns>
-                  <TableColumn fx:id="idCl1" prefWidth="55.20001220703125" text="ID" />
-                  <TableColumn fx:id="nameCl1" prefWidth="246.3999816894531" text="Name" />
+                  <TableColumn fx:id="idClCate" prefWidth="72.0" text="ID" />
+                  <TableColumn fx:id="nameClCate" prefWidth="230.39999389648438" text="Name" />
                </columns>
             </TableView>
             <AnchorPane fx:id="formProduct1" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">

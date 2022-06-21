@@ -67,6 +67,28 @@ public class DbConnect {
         }
         return productList;
     }
+
+    //Get table categories
+    public static ObservableList<Category> getTableCategories(){
+        Connection conn = getConnection();
+        ObservableList<Category> CategoryList = FXCollections.observableArrayList();
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM categories");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                CategoryList.add(new Category(
+                        Integer.parseInt(rs.getString("id")),
+                        rs.getString("name")
+                ));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+        return CategoryList;
+    }
+
+
     //get list of categories
     public List<Category> getListCategories(){
         ArrayList<Category> list = new ArrayList<>();

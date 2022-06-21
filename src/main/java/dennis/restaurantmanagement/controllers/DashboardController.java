@@ -2,6 +2,7 @@ package dennis.restaurantmanagement.controllers;
 
 import dennis.restaurantmanagement.MainController;
 import dennis.restaurantmanagement.connection.DbConnect;
+import dennis.restaurantmanagement.models.Category;
 import dennis.restaurantmanagement.models.Product;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,46 +27,71 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DashboardController implements Initializable {
+    // Four button to control the dashboard
+    @FXML
     public Button btnProducts;
+    @FXML
     public Button btnExit;
+    @FXML
     public Button btnCategories;
+    @FXML
     public Button btnOrders;
-    public AnchorPane dbProduct;
-    public AnchorPane dbCategory;
-    MainController mainController = new MainController();
+
+    @FXML
+    public AnchorPane dbProduct;//Container of product
+    @FXML
+    public AnchorPane dbCategory;//Container of category
+
+    //Create tableview for category table
+    @FXML
+    public TableView<Category> tableViewCategory;
+    @FXML
+    public TableColumn<Category, Integer> idClCate;
+    @FXML
+    public TableColumn<Category, String> nameClCate;
+    @FXML
+    public Button btnDeleteCategory;
+    @FXML
+    public Button btnCreateCategory;
+    ObservableList<Product> selectedCate;
+    Category clickedRowCate;
+
+    //Properties of product
+    @FXML
+    public TableView<Product> tableView;
+    @FXML
+    public TableColumn<Product, Integer> idCl;
+    @FXML
+    public TableColumn<Product, Integer> categoryCl;
+    @FXML
+    public TableColumn<Product, String> imageCl;
+
+    @FXML
+    public TableColumn<Product, String> nameCl;
+
+    @FXML
+    public TableColumn<Product, Float> priceCl;
+
+    @FXML
+    public TextField ttCategory;
+
+    @FXML
+    public TextField ttImage;
+
+    @FXML
+    public TextField ttName;
+
+    @FXML
+    public TextField ttPrice;
+
     ObservableList<Product> selected;
     Product clickedRow;
 
     @FXML
-    private Button btnDelete;
+    public Button btnDelete;
     @FXML
-    private Button btnCreate;
-    @FXML
-    private TableView<Product> tableView;
-    @FXML
-    private TableColumn<Product, Integer> idCl;
-    @FXML
-    private TableColumn<Product, Integer> categoryCl;
-    @FXML
-    private TableColumn<Product, String> imageCl;
+    public Button btnCreate;
 
-    @FXML
-    private TableColumn<Product, String> nameCl;
-
-    @FXML
-    private TableColumn<Product, Float> priceCl;
-
-    @FXML
-    private TextField ttCategory;
-
-    @FXML
-    private TextField ttImage;
-
-    @FXML
-    private TextField ttName;
-
-    @FXML
-    private TextField ttPrice;
 
     public void resetText(){
         ttCategory.setText("");
@@ -133,7 +159,6 @@ public class DashboardController implements Initializable {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 
@@ -143,6 +168,7 @@ public class DashboardController implements Initializable {
        loadTable();
     }
 
+    //Load data of product table
     public void loadTable(){
         ObservableList<Product> list = FXCollections.observableArrayList(DbConnect.getTableProducts());
         try{
@@ -178,6 +204,36 @@ public class DashboardController implements Initializable {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
         }
 
+    }
+
+
+    public void show(){
+        ObservableList<Category> list = FXCollections.observableArrayList(DbConnect.getTableCategories());
+        try{
+            idClCate.setCellValueFactory( new PropertyValueFactory<Category, Integer>("id"));
+            nameClCate.setCellValueFactory( new PropertyValueFactory<Category, String>("name"));
+            tableViewCategory.setItems(list);
+
+            //Get the action when click on the row on table
+            tableViewCategory.setRowFactory(tv -> {
+                TableRow<Category> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (! row.isEmpty() && event.getButton()== MouseButton.PRIMARY
+                            && event.getClickCount() == 2) {
+                        clickedRowCate = row.getItem();
+                        ttName.setText(clickedRowCate.getName());
+                        btnCreateCategory.setText("Update");
+                    } else if (row.isEmpty() || (event.getButton()== MouseButton.PRIMARY
+                            && event.getClickCount() == 1)) {
+                        btnCreateCategory.setText("Create");
+                        resetText();
+                    }
+                });
+                return row ;
+            });
+        }catch (Exception e){
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     public void btnOrders(ActionEvent actionEvent) {
