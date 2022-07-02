@@ -16,44 +16,22 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId_category() {
         return id_category;
-    }
-
-    public void setId_category(int id) {
-        this.id_category = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
 
     public float getPrice() {
         return price;
     }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-
 
     public Product(int id, int id_category, String name, String image, float price) {
         this.id = id;

@@ -11,9 +11,6 @@ public class AdminAccount {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -27,9 +24,6 @@ public class AdminAccount {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public AdminAccount(int id, String username, String password) {
         this.id = id;

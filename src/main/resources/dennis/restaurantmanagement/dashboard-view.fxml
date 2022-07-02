@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -15,7 +18,7 @@
             <Font name="Monospaced Bold" size="34.0" />
          </font>
       </Label>
-      <Button fx:id="btnOrders" layoutX="510.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnOrders" prefHeight="48.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #bc4e9c, #f80759);" text="Orders" textFill="WHITE">
+      <Button fx:id="btnOrders" layoutX="510.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnOrders" prefHeight="48.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde);" text="Orders" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
@@ -25,7 +28,7 @@
             <Font name="Monospaced Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnExit" layoutX="718.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="48.0" prefWidth="184.0" style="-fx-background-color: linear-gradient(to right, #bc4e9c, #f80759);" text="Exit program" textFill="WHITE">
+      <Button fx:id="btnExit" layoutX="718.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="48.0" prefWidth="184.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);;" text="Exit program" textFill="WHITE">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
@@ -37,13 +40,13 @@
       </Button>
       <AnchorPane fx:id="dbProduct" layoutX="21.0" layoutY="60.0" prefHeight="406.0" prefWidth="882.0">
          <children>
-            <TableView fx:id="tableView" layoutX="350.0" layoutY="18.0" prefHeight="366.0" prefWidth="531.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde); -fx-background-radius: 10px; -fx-border-radius: 10px;">
+            <TableView fx:id="tableView" layoutX="350.0" layoutY="18.0" prefHeight="366.0" prefWidth="538.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde); -fx-background-radius: 10px; -fx-border-radius: 10px;">
                <columns>
                   <TableColumn fx:id="idCl" prefWidth="55.20001220703125" text="ID" />
                   <TableColumn fx:id="nameCl" prefWidth="124.80001831054688" text="Name" />
                   <TableColumn fx:id="categoryCl" text="Category" />
                   <TableColumn fx:id="imageCl" minWidth="0.0" prefWidth="169.5999755859375" text="Image" />
-                  <TableColumn fx:id="priceCl" maxWidth="152.0" minWidth="7.199951171875" prefWidth="99.20000000000005" text="Price" />
+                  <TableColumn fx:id="priceCl" maxWidth="152.0" minWidth="10.199951171875" prefWidth="106.39999999999998" text="Price" />
                </columns>
             </TableView>
             <AnchorPane fx:id="formProduct" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">
@@ -73,11 +76,6 @@
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="ttCategory" layoutX="118.0" layoutY="62.0" prefHeight="29.0" prefWidth="193.0">
-                     <font>
-                        <Font name="Monospaced Regular" size="15.0" />
-                     </font>
-                  </TextField>
                   <TextField fx:id="ttImage" layoutX="118.0" layoutY="116.0" prefHeight="29.0" prefWidth="193.0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
@@ -98,6 +96,7 @@
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
                   </Button>
+                  <ChoiceBox fx:id="choiceCate" layoutX="117.0" layoutY="61.0" prefHeight="30.0" prefWidth="194.0" value="Chose the category" />
                </children>
             </AnchorPane>
          </children>
@@ -106,8 +105,8 @@
          <children>
             <TableView fx:id="tableViewCategory" layoutX="341.0" layoutY="10.0" prefHeight="366.0" prefWidth="303.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde); -fx-background-radius: 10px; -fx-border-radius: 10px;">
                <columns>
-                  <TableColumn fx:id="idClCate" prefWidth="72.0" text="ID" />
-                  <TableColumn fx:id="nameClCate" prefWidth="230.39999389648438" text="Name" />
+                  <TableColumn fx:id="idClCate" prefWidth="72.79998779296875" text="ID" />
+                  <TableColumn fx:id="nameClCate" prefWidth="224.79995727539062" text="Name" />
                </columns>
             </TableView>
             <AnchorPane fx:id="formProduct1" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">
@@ -122,18 +121,118 @@
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btnCreateCategory" layoutX="6.0" layoutY="227.0" mnemonicParsing="false" onAction="#btnCreateCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #00f260, #0575e6);;" text="Create">
+                  <Button fx:id="btnCreateCategory" layoutX="6.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnCreateCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #00f260, #0575e6);;" text="Create">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDeleteCategory" layoutX="172.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnDeleteCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Delete">
+                  <Button fx:id="btnDeleteCategory" layoutX="172.0" layoutY="221.0" mnemonicParsing="false" onAction="#btnDeleteCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Delete">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dbOrders" layoutX="31.0" layoutY="70.0" prefHeight="406.0" prefWidth="882.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <children>
+            <Button fx:id="btnTable1" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 1" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable10" layoutY="254.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 10" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable7" layoutY="173.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 7" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable4" layoutY="87.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 4" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable2" layoutX="125.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 2" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable3" layoutX="249.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 3" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable5" layoutX="125.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 5" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable6" layoutX="249.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 6" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable8" layoutX="125.0" layoutY="173.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 8" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable9" layoutX="249.0" layoutY="173.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 9" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable11" layoutX="125.0" layoutY="254.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 11" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTable12" layoutX="249.0" layoutY="254.0" mnemonicParsing="false" onAction="#chooseTable" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f7ff00, #db36a4);;" text="Table 12" textFill="#0c3015">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="19.0" />
+               </font>
+            </Button>
+            <TableView fx:id="tableViewOrder" layoutX="396.0" prefHeight="200.0" prefWidth="487.0">
+              <columns>
+                <TableColumn fx:id="OrderItemCl" prefWidth="152.79995727539062" text="Item" />
+                <TableColumn fx:id="OrderPriceCl" prefWidth="100.00006103515625" text="Price" />
+                  <TableColumn fx:id="OrderNoteCl" prefWidth="224.7999267578125" text="Note" />
+              </columns>
+            </TableView>
+            <ChoiceBox fx:id="choiceItem" layoutX="396.0" layoutY="218.0" prefHeight="30.0" prefWidth="184.0" value="Chose the Item" />
+            <Button fx:id="addItem" layoutX="675.0" layoutY="218.0" mnemonicParsing="false" onAction="#addItem" prefHeight="29.0" prefWidth="98.0" text="Add item">
+               <font>
+                  <Font name="Monospaced Regular" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="removeItem" layoutX="784.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="29.0" prefWidth="98.0" text="Remove">
+               <font>
+                  <Font name="Monospaced Regular" size="15.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="note" layoutX="396.0" layoutY="257.0" prefHeight="54.0" prefWidth="480.0" promptText="Note...">
+               <font>
+                  <Font name="Monospaced Regular" size="12.0" />
+               </font>
+            </TextArea>
+            <Button fx:id="createOrder" layoutX="591.0" layoutY="335.0" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" prefWidth="133.0" text="Create order">
+               <font>
+                  <Font name="Monospaced Regular" size="15.0" />
+               </font>
+            </Button>
+            <TextField fx:id="qty" layoutX="584.0" layoutY="220.0" prefHeight="30.0" prefWidth="82.0" promptText="quantity...">
+               <font>
+                  <Font name="Monospaced Bold" size="12.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
    </children>

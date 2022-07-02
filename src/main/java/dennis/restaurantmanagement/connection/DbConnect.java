@@ -1,13 +1,13 @@
 package dennis.restaurantmanagement.connection;
 
-import dennis.restaurantmanagement.models.AdminAccount;
-import dennis.restaurantmanagement.models.Category;
-import dennis.restaurantmanagement.models.Product;
+import dennis.restaurantmanagement.models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DbConnect {
@@ -21,6 +21,43 @@ public class DbConnect {
             e.printStackTrace();
         }
         return conn;
+    }
+    //Insert query
+    public void insertQuery( String table, String field, String values){
+        String sql = "INSERT INTO  "+table +" "+ field +" VALUE " + values;
+
+        try{
+            getConnection().prepareStatement(sql).executeUpdate();
+            System.out.println("Added a new record!");
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    //delete query
+    public void deleteQuery(String table, String condition){
+        String sql = "DELETE FROM "+table+" WHERE " + condition;
+
+        try{
+            getConnection().prepareStatement(sql).executeUpdate();
+            System.out.println("Deleted a record!");
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    //update query
+    public void updateQuery(String table, String clauseSpecifies, String condition){
+        String sql = "UPDATE " + table +
+                " SET " + clauseSpecifies +
+                "WHERE "+ condition;
+
+        try{
+            getConnection().prepareStatement(sql).executeUpdate();
+            System.out.println("Updated a record!");
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     //get list product
@@ -108,6 +145,50 @@ public class DbConnect {
         return list;
     }
 
+    //Get id category
+    public int getIdCategory(String nameCate){
+        try{
+            var result = getConnection().prepareStatement("SELECT * FROM categories").executeQuery();
+            while(result.next()){
+                if (result.getString(2).equals(nameCate)){
+                    return result.getInt("id");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return -1;
+    }
+
+    //Get id product
+    public int getIdProduct(String namePrd){
+        try{
+            var result = getConnection().prepareStatement("SELECT * FROM products").executeQuery();
+            while(result.next()){
+                if (result.getString(3).equals(namePrd)){
+                    return result.getInt("id");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return -1;
+    }
+
+    //Get name category
+    public String getNameCategory(int id){
+        try{
+            var result = getConnection().prepareStatement("SELECT * FROM categories").executeQuery();
+            while(result.next()){
+                if (result.getInt("id")== id){
+                    return result.getString("name");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return null;
+    }
     //get list of accounts
     public List<AdminAccount> getListAccounts(){
         ArrayList<AdminAccount> list = new ArrayList<>();
@@ -128,42 +209,49 @@ public class DbConnect {
         return list;
     }
 
-    //Insert query
-    public void insertQuery( String table, String field, String values){
-        String sql = "INSERT INTO  "+table +" "+ field +" VALUE " + values;
-
+    //Get table orders
+    public static ObservableList<Order> getTableOrders(){
+        Connection conn = getConnection();
+        ObservableList<Order> orderList = FXCollections.observableArrayList();
         try{
-            getConnection().prepareStatement(sql).executeUpdate();
-            System.out.println("Added a new record!");
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM orders");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                orderList.add(new Order(
+                        Integer.parseInt(rs.getString("id")),
+                        rs.getString("table"),
+                        Float.parseFloat(rs.getString("total")),
+                        LocalDateTime.parse(rs.getString("created"))
+                ));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
         }
+        return orderList;
     }
 
-    //delete query
-    public void deleteQuery(String table, String condition){
-        String sql = "DELETE FROM "+table+" WHERE " + condition;
-
+    //Get table orderDetails
+    public static ObservableList<OrderDetail> getTableOrderDetails(){
+        Connection conn = getConnection();
+        ObservableList<OrderDetail> orderDetailList = FXCollections.observableArrayList();
         try{
-            getConnection().prepareStatement(sql).executeUpdate();
-            System.out.println("Deleted a record!");
-        }catch (SQLException e){
-            throw new RuntimeException(e);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM orderdetails");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                orderDetailList.add(new OrderDetail(
+                        Integer.parseInt(rs.getString("id")),
+                        Integer.parseInt(rs.getString("id_product")),
+                        Integer.parseInt(rs.getString("id_order")),
+                        Integer.parseInt(rs.getString("quantity")),
+                        Float.parseFloat(rs.getString("total"))
+                ));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
         }
-    }
-
-    //update query
-    public void updateQuery(String table, String clauseSpecifies, String condition){
-        String sql = "UPDATE " + table +
-                " SET " + clauseSpecifies +
-                "WHERE "+ condition;
-
-        try{
-            getConnection().prepareStatement(sql).executeUpdate();
-            System.out.println("Updated a record!");
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+        return orderDetailList;
     }
 }
 
