@@ -10,11 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,6 +27,12 @@ import java.util.logging.Logger;
 
 public class DashboardController implements Initializable {
     // Four button to control the dashboard
+    DbConnect conn = new DbConnect();
+    public void alert(String message, Alert.AlertType type){
+        var alert = new Alert(type, message);
+        alert.showAndWait();
+    }
+
     @FXML
     public Button btnProducts;
     @FXML
@@ -91,24 +102,8 @@ public class DashboardController implements Initializable {
     public Button btnDelete;
     @FXML
     public Button btnCreate;
-
-
-
-    // Create tableview for order
     @FXML
-    public Button addItem;
-    @FXML
-    public TextArea note;
-    @FXML
-    public ChoiceBox choiceItem;
-    @FXML
-    public TableView<OrderDetail> tableViewOrder;
-    @FXML
-    public TableColumn<OrderDetail, String> OrderItemCl;
-    @FXML
-    public TableColumn<OrderDetail, Float> OrderPriceCl;
-    @FXML
-    public TableColumn<Order, String> OrderNoteCl;
+    public ImageView imgPreview;
 
 
     //Functions of product =============================================================================================
@@ -185,7 +180,6 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         dbCategory.setVisible(false);
         dbOrders.setVisible(false);
         loadTable();
@@ -194,7 +188,6 @@ public class DashboardController implements Initializable {
     //Load data of product table
     public void loadTable(){
         choiceCate.getItems().clear();
-        DbConnect conn = new DbConnect();
         ObservableList<Product> list = FXCollections.observableArrayList(conn.getTableProducts());
         ArrayList<Category> cateList = new ArrayList<>(conn.getListCategories());
         String[] categories = new String[cateList.size()];
@@ -204,11 +197,11 @@ public class DashboardController implements Initializable {
         choiceCate.getItems().addAll(categories);
 
         try{
-            idCl.setCellValueFactory( new PropertyValueFactory<Product, Integer>("id"));
-            categoryCl.setCellValueFactory( new PropertyValueFactory<Product, Integer>("id_category"));
-            nameCl.setCellValueFactory( new PropertyValueFactory<Product, String>("name"));
-            imageCl.setCellValueFactory( new PropertyValueFactory<Product, String>("image"));
-            priceCl.setCellValueFactory( new PropertyValueFactory<Product, Float>("price"));
+            idCl.setCellValueFactory( new PropertyValueFactory<>("id"));
+            categoryCl.setCellValueFactory( new PropertyValueFactory<>("name_category"));
+            nameCl.setCellValueFactory( new PropertyValueFactory<>("name"));
+            imageCl.setCellValueFactory( new PropertyValueFactory<>("image"));
+            priceCl.setCellValueFactory( new PropertyValueFactory<>("price"));
             tableView.setItems(list);
 
             //Get the action when click on the row on table
@@ -224,10 +217,13 @@ public class DashboardController implements Initializable {
                         ttImage.setText(clickedRow.getImage());
                         ttPrice.setText(""+clickedRow.getPrice());
                         btnCreate.setText("Update");
+                        showImageClicked();
                     } else if (row.isEmpty() || (event.getButton()== MouseButton.PRIMARY
                             && event.getClickCount() == 1)) {
                         btnCreate.setText("Create");
                         resetText();
+                        clickedRow = row.getItem();
+                        showImageClicked();
                     }
                 });
                 return row ;
@@ -235,12 +231,16 @@ public class DashboardController implements Initializable {
         }catch (Exception e){
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
 
+    public void showImageClicked(){
+        Image img = new Image(clickedRow.getImage());
+        imgPreview.setImage(img);
+        System.out.println(clickedRow.getImage());
     }
 
 // Functions of category ===============================================================================================
     public void showCategory(){
-        DbConnect conn = new DbConnect();
         ObservableList<Category> list = FXCollections.observableArrayList(conn.getTableCategories());
         try{
             idClCate.setCellValueFactory( new PropertyValueFactory<Category, Integer>("id"));
@@ -327,15 +327,39 @@ public class DashboardController implements Initializable {
     }
 
     //Functions of Order ==================================================
+    // Create tableview for order
+    @FXML
+    public Button addItem;
+    @FXML
+    public TextArea note;
+    @FXML
+    public ChoiceBox<String> choiceItem;
+    @FXML
+    public TableView<OrderDetail> tableViewOrder;
+    @FXML
+    public TableColumn<OrderDetail, String> OrderItemCl;
+    @FXML
+    public TableColumn<OrderDetail, Float> OrderPriceCl;
+    @FXML
+    public TableColumn<OrderDetail, Integer> OrderQtyCl;
+    DateFormat DATEFORMAT = new SimpleDateFormat("yyyy/MM/dd hh/mm/ss");
+    String data = DATEFORMAT.format(new Date());
 
     boolean selectedTable = false;
     Button btnSelected;
+    int id_order = 0;
     @FXML
     public TextField qty;
+    OrderDetail clickedRowOrder;
 
+    public void resetValueOrder(){
+        choiceItem.setValue("Chose the item");
+        qty.setText("");
+        note.setText("");
+    }
     String PATTERN_QTY = "\\d*";
     private void showOrderItem() {
-        DbConnect conn = new DbConnect();
+        choiceItem.getItems().clear();
         ArrayList<Product> ProductList = new ArrayList<>(conn.getListProducts());
         String[] products = new String[ProductList.size()];
         for(int i = 0; i< products.length; i++){
@@ -352,7 +376,33 @@ public class DashboardController implements Initializable {
         btnSelected = btn;
         selectedTable = false;
         changeBgBtn();
-        System.out.println(btnSelected.getText());
+
+        id_order = conn.getOrderId(btnSelected.getText());
+        if(id_order==-1){
+            //Mean this table doesn't have any order
+            conn.insertQuery(" `orders` ", "(`table`, `total`, `created`)", "('"+ btnSelected.getText()+ "', '0', '"+data+ "')");
+        }else{
+            showOrderItemTableView();
+        }
+    }
+
+    private void showOrderItemTableView() {
+        ObservableList<OrderDetail> list = FXCollections.observableArrayList(conn.getTableOrderDetails(id_order));
+
+        OrderItemCl.setCellValueFactory( new PropertyValueFactory<>("name_product"));
+        OrderPriceCl.setCellValueFactory( new PropertyValueFactory<>("price"));
+        OrderQtyCl.setCellValueFactory( new PropertyValueFactory<>("quantity"));
+        tableViewOrder.setItems(list);
+
+        tableViewOrder.setRowFactory(tv -> {
+            TableRow<OrderDetail> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty()) {
+                    clickedRowOrder = row.getItem();
+                }
+            });
+            return row ;
+        });
     }
 
     public void changeBgBtn(){
@@ -366,25 +416,47 @@ public class DashboardController implements Initializable {
     }
 
     public void removeItem(ActionEvent event) {
-
+        conn.deleteQuery("orderdetails", "id = " + clickedRowOrder.getId());
+        conn.updateQuery("orders",
+                " total = '" + conn.getTotalOrder(clickedRowOrder.getId_order())+ "' , `created` = '"+data+"'",
+                "id = " + clickedRowOrder.getId_order());
+        showOrderItemTableView();
     }
     public void createOrder(ActionEvent event) {
-
+        int id_order = clickedRowOrder.getId_order();
+        //todo update order
     }
-    public void addItem(ActionEvent event) {
-        DbConnect conn = new DbConnect();
+    public void addItem(ActionEvent event) { // Add item to order detail
         int id_prd = conn.getIdProduct((String) choiceItem.getValue());
         String qtyTxt = qty.getText();
-        if(!qtyTxt.matches(PATTERN_QTY)){
-            var alert = new Alert(Alert.AlertType.WARNING, "Please enter the numeric quantity!");
+
+        if (btnSelected == null){
+            var alert = new Alert(Alert.AlertType.WARNING, "Select the table!");
             alert.show();
             return;
         }
-        if (id_prd == -1){
+        if(!qtyTxt.matches(PATTERN_QTY )){ // validate quantity
+            var alert = new Alert(Alert.AlertType.WARNING, "Please enter the numeric quantity!");
+            alert.show();
+            return;
+        } else if (qtyTxt=="") {
+            qtyTxt = "1";
+        }
+        if (id_prd == -1){ //validate item select
             var alert = new Alert(Alert.AlertType.WARNING, "Please choose the item!");
             alert.show();
             return;
         }
+
+        conn.insertQuery("orderdetails", "(`id_product`, `id_order`, `quantity`, `price`)", "("+id_prd+", "+id_order
+                +", "+qtyTxt +" , '"+conn.getPriceProduct(id_prd)+"')");
+
+        conn.updateQuery("orders",
+                "`total` = '"+conn.getTotalOrder(id_order)+"', `created` = '"+data+"', `note` = '"+ note.getText()+"'",
+                "`table` = '"+btnSelected.getText()+"'");
+        resetValueOrder();
+        showOrderItemTableView();
+
     }
 
     //Button to control the dashboard
@@ -414,5 +486,4 @@ public class DashboardController implements Initializable {
         dbOrders.setVisible(false);
         loadTable();
     }
-
 }

@@ -4,15 +4,17 @@ import java.time.LocalDateTime;
 
 public class Order {
     private int id;
-    private String tableNumber;
+    private String table;
     private float total;
     private LocalDateTime created;
+    private String note;
 
-    public Order(int id, String tableNumber, float total, LocalDateTime created) {
+    public Order(int id, String table, float total, LocalDateTime created, String note) {
         this.id = id;
-        this.tableNumber = tableNumber;
+        this.table = table;
         this.total = total;
         this.created = created;
+        this.note = note;
     }
 
     public int getId() {
@@ -24,11 +26,11 @@ public class Order {
     }
 
     public String getTableNumber() {
-        return tableNumber;
+        return table;
     }
 
     public void setTableNumber(String tableNumber) {
-        this.tableNumber = tableNumber;
+        this.table = tableNumber;
     }
 
     public float getTotal() {
@@ -45,5 +47,13 @@ public class Order {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

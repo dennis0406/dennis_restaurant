@@ -25,7 +25,6 @@ public class DbConnect {
     //Insert query
     public void insertQuery( String table, String field, String values){
         String sql = "INSERT INTO  "+table +" "+ field +" VALUE " + values;
-
         try{
             getConnection().prepareStatement(sql).executeUpdate();
             System.out.println("Added a new record!");
@@ -160,6 +159,14 @@ public class DbConnect {
         return -1;
     }
 
+    public static ResultSet queryReturn(String table){
+        try{
+            return getConnection().prepareStatement("SELECT * FROM " + table).executeQuery();
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+    }
+
     //Get id product
     public int getIdProduct(String namePrd){
         try{
@@ -174,7 +181,20 @@ public class DbConnect {
         }
         return -1;
     }
-
+    //Get price product
+    public float getPriceProduct(int id){
+        try{
+            var result = getConnection().prepareStatement("SELECT * FROM products").executeQuery();
+            while(result.next()){
+                if (result.getInt(1)== id){
+                    return result.getFloat("price");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return 0;
+    }
     //Get name category
     public String getNameCategory(int id){
         try{
@@ -189,6 +209,8 @@ public class DbConnect {
         }
         return null;
     }
+
+
     //get list of accounts
     public List<AdminAccount> getListAccounts(){
         ArrayList<AdminAccount> list = new ArrayList<>();
@@ -221,7 +243,8 @@ public class DbConnect {
                         Integer.parseInt(rs.getString("id")),
                         rs.getString("table"),
                         Float.parseFloat(rs.getString("total")),
-                        LocalDateTime.parse(rs.getString("created"))
+                        LocalDateTime.parse(rs.getString("created")),
+                        rs.getString("note")
                 ));
             }
         }catch (Exception e){
@@ -232,26 +255,55 @@ public class DbConnect {
     }
 
     //Get table orderDetails
-    public static ObservableList<OrderDetail> getTableOrderDetails(){
+    public static ObservableList<OrderDetail> getTableOrderDetails(int id_order){
         Connection conn = getConnection();
         ObservableList<OrderDetail> orderDetailList = FXCollections.observableArrayList();
         try{
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM orderdetails");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                orderDetailList.add(new OrderDetail(
-                        Integer.parseInt(rs.getString("id")),
-                        Integer.parseInt(rs.getString("id_product")),
-                        Integer.parseInt(rs.getString("id_order")),
-                        Integer.parseInt(rs.getString("quantity")),
-                        Float.parseFloat(rs.getString("total"))
-                ));
+                if(rs.getInt(3)==id_order){
+                    orderDetailList.add(new OrderDetail(
+                            Integer.parseInt(rs.getString("id")),
+                            Integer.parseInt(rs.getString("id_product")),
+                            Integer.parseInt(rs.getString("id_order")),
+                            Integer.parseInt(rs.getString("quantity")),
+                            Float.parseFloat(rs.getString("price"))
+                    ));
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
             e.getCause();
         }
         return orderDetailList;
+    }
+
+    //Get order Item
+    public int getOrderId(String table){
+        try{
+            var result = getConnection().prepareStatement("SELECT * FROM orders").executeQuery();
+            while(result.next()){
+                if (result.getString("table").equals(table)){
+                    return result.getInt("id");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return -1;
+    }
+
+    public Float getTotalOrder(int id_order) {
+        try{
+            var result = getConnection().prepareStatement("SELECT SUM(quantity*price) FROM `orderdetails` WHERE id_order = "+id_order+";").executeQuery();
+            while(result.next()){
+                return result.getFloat(1);
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return null;
     }
 }
 

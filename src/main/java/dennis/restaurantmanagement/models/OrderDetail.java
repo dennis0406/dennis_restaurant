@@ -1,20 +1,41 @@
 package dennis.restaurantmanagement.models;
 
+import dennis.restaurantmanagement.connection.DbConnect;
+
 public class OrderDetail {
     private int id;
     private int id_product;
     private int id_order;
     private int quantity;
-    private float total;
+    private float price;
 
-    public OrderDetail(int id, int id_product, int id_order, int quantity, float total) {
+    public String getName_product() {
+        return name_product;
+    }
+
+    private String name_product;
+
+    public OrderDetail(int id, int id_product, int id_order, int quantity, float price) {
         this.id = id;
         this.id_product = id_product;
         this.id_order = id_order;
         this.quantity = quantity;
-        this.total = total;
+        this.price = price;
+        this.name_product = setName_product(id_product);
     }
-
+    public String setName_product(int id_product) {
+        try{
+            var result = DbConnect.getConnection().prepareStatement("SELECT * FROM products").executeQuery();
+            while(result.next()){
+                if (result.getInt(1)== id_product){
+                    return this.name_product = result.getString("name");
+                }
+            }
+        }catch(Exception e){
+            throw new Error("Not working! " + e);
+        }
+        return "not found";
+    }
     public int getId() {
         return id;
     }
@@ -47,11 +68,11 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public float getTotal() {
-        return total;
+    public float getPrice() {
+        return price;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
+    public void setPrice(float total) {
+        this.price = total;
     }
 }
