@@ -21,7 +21,8 @@ public class MainApplication extends Application {
         window = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
         window.initStyle(StageStyle.DECORATED);
-        window.setScene(new Scene(root, 600, 400));
+        window.setScene(new Scene(root));
+        window.centerOnScreen();
         window.show();
     }
 

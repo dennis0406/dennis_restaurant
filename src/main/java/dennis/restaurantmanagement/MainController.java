@@ -45,7 +45,8 @@ public class MainController {
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
             stage.setTitle("Dashboard");
-            stage.setScene(new Scene(root, 925, 550));
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
         }
     }
 

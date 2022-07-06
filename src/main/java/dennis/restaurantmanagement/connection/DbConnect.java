@@ -16,7 +16,6 @@ public class DbConnect {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/storemanagement", "root", "");
-            System.out.println("Connect database successful!");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -74,7 +73,6 @@ public class DbConnect {
                 ));
 
             }
-            System.out.println("Success!");
         }catch(Exception e){
             throw new Error("Not working! " + e);
         }
@@ -137,7 +135,6 @@ public class DbConnect {
                 ));
 
             }
-            System.out.println("Success!");
         }catch(Exception e){
             throw new Error("Not working! " + e);
         }
@@ -224,7 +221,6 @@ public class DbConnect {
                 ));
 
             }
-            System.out.println("Success!");
         }catch(Exception e){
             throw new Error("Not working! " + e);
         }
@@ -281,17 +277,19 @@ public class DbConnect {
 
     //Get order Item
     public int getOrderId(String table){
+        int rs = -1;
         try{
             var result = getConnection().prepareStatement("SELECT * FROM orders").executeQuery();
             while(result.next()){
-                if (result.getString("table").equals(table)){
-                    return result.getInt("id");
+                if (result.getString("table").equals(table) && result.getString("status").equals("Ordering")){
+                    rs = result.getInt("id");
+                    break;
                 }
             }
         }catch(Exception e){
             throw new Error("Not working! " + e);
         }
-        return -1;
+        return rs;
     }
 
     public Float getTotalOrder(int id_order) {

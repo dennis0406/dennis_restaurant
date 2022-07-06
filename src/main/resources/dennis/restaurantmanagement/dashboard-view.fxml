@@ -8,36 +8,80 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="925.0" style="-fx-background-color: linear-gradient(to right, #b3ffab, #12fff7);;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dennis.restaurantmanagement.controllers.DashboardController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #141e30, #243b55);;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dennis.restaurantmanagement.controllers.DashboardController">
    <children>
-      <Label layoutX="376.0" layoutY="24.0" text="DASHBOARD" textFill="#0909ea">
+      <Label layoutX="376.0" layoutY="24.0" text="DASHBOARD">
          <font>
             <Font name="Monospaced Bold" size="34.0" />
          </font>
+         <textFill>
+            <RadialGradient centerX="0.4779735682819383" centerY="0.5075757503509521" cycleMethod="REFLECT" focusAngle="129.81" focusDistance="-0.1284403319752545" radius="0.5275229095318995">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6392157077789307" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.13593539703903096">
+                     <color>
+                        <Color red="0.019600000232458115" green="0.9800000190734863" blue="0.6383348107337952" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3097560975609756">
+                     <color>
+                        <Color red="0.019600000232458115" green="0.9800000190734863" blue="0.6278533339500427" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5420575780454977">
+                     <color>
+                        <Color red="0.019600000232458115" green="0.9800000190734863" blue="0.6278533339500427" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6274510025978088" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
       </Label>
-      <Button fx:id="btnOrders" layoutX="510.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnOrders" prefHeight="48.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde);" text="Orders" textFill="WHITE">
+      <Button fx:id="btnOrders" layoutX="510.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnOrders" prefHeight="48.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Orders">
+         <font>
+            <Font name="Monospaced Bold" size="20.0" />
+         </font>
+         <effect>
+            <Blend mode="LIGHTEN" />
+         </effect>
+      </Button>
+      <Button fx:id="btnCategories" layoutX="23.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnCategories" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Categories">
+         <font>
+            <Font name="Monospaced Bold" size="20.0" />
+         </font>
+         <effect>
+            <Blend mode="LIGHTEN" />
+         </effect>
+      </Button>
+      <Button fx:id="btnExit" layoutX="718.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="48.0" prefWidth="184.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);;" text="Exit program">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnCategories" layoutX="23.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnCategories" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: linear-gradient(to right, #bc4e9c, #f80759);" text="Categories" textFill="WHITE">
+      <Button fx:id="btnProducts" layoutX="271.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnProducts" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Products">
          <font>
             <Font name="Monospaced Bold" size="20.0" />
          </font>
-      </Button>
-      <Button fx:id="btnExit" layoutX="718.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnExit" prefHeight="48.0" prefWidth="184.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);;" text="Exit program" textFill="WHITE">
-         <font>
-            <Font name="Monospaced Bold" size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnProducts" layoutX="271.0" layoutY="485.0" mnemonicParsing="false" onAction="#btnProducts" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: linear-gradient(to right, #bc4e9c, #f80759);" text="Products" textFill="WHITE">
-         <font>
-            <Font name="Monospaced Bold" size="20.0" />
-         </font>
+         <effect>
+            <Blend mode="LIGHTEN" />
+         </effect>
       </Button>
       <AnchorPane fx:id="dbProduct" layoutX="21.0" layoutY="60.0" prefHeight="406.0" prefWidth="882.0">
          <children>
@@ -52,47 +96,47 @@
             </TableView>
             <AnchorPane fx:id="formProduct" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">
                <children>
-                  <Label layoutX="16.0" layoutY="9.0" text="Name">
+                  <Label layoutX="16.0" layoutY="9.0" text="Name" textFill="#05faa0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="16.0" layoutY="67.0" text="Category">
+                  <Label layoutX="16.0" layoutY="67.0" text="Category" textFill="#05faa0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="16.0" layoutY="122.0" text="Image">
+                  <Label layoutX="16.0" layoutY="122.0" text="Image" textFill="#05faa0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="16.0" layoutY="179.0" text="Price">
+                  <Label layoutX="16.0" layoutY="179.0" text="Price" textFill="#05faa0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ttName" layoutX="118.0" layoutY="6.0" prefHeight="29.0" prefWidth="193.0">
+                  <TextField fx:id="ttName" layoutX="118.0" layoutY="6.0" prefHeight="29.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="ttImage" layoutX="118.0" layoutY="116.0" prefHeight="29.0" prefWidth="193.0">
+                  <TextField fx:id="ttImage" layoutX="118.0" layoutY="116.0" prefHeight="29.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="ttPrice" layoutX="118.0" layoutY="174.0" prefHeight="29.0" prefWidth="193.0">
+                  <TextField fx:id="ttPrice" layoutX="118.0" layoutY="174.0" prefHeight="29.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btnCreate" layoutX="16.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnCreate" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #00f260, #0575e6);;" text="Create">
+                  <Button fx:id="btnCreate" layoutX="16.0" layoutY="233.0" mnemonicParsing="false" onAction="#btnCreate" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Create">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDelete" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Delete">
+                  <Button fx:id="btnDelete" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);" text="Delete">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
@@ -113,22 +157,22 @@
             </TableView>
             <AnchorPane fx:id="formProduct1" layoutX="14.0" layoutY="18.0" prefHeight="366.0" prefWidth="308.0">
                <children>
-                  <Label layoutX="6.0" layoutY="2.0" text="Name">
+                  <Label layoutX="6.0" layoutY="2.0" text="Name" textFill="#05faa0">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ttNameCategory" layoutX="108.0" layoutY="-1.0" prefHeight="29.0" prefWidth="193.0">
+                  <TextField fx:id="ttNameCategory" layoutX="108.0" layoutY="-1.0" prefHeight="29.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                      <font>
                         <Font name="Monospaced Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="btnCreateCategory" layoutX="6.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnCreateCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #00f260, #0575e6);;" text="Create">
+                  <Button fx:id="btnCreateCategory" layoutX="6.0" layoutY="224.0" mnemonicParsing="false" onAction="#btnCreateCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Create">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDeleteCategory" layoutX="172.0" layoutY="221.0" mnemonicParsing="false" onAction="#btnDeleteCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #8a2387, #e94057, #f27121);;" text="Delete">
+                  <Button fx:id="btnDeleteCategory" layoutX="172.0" layoutY="221.0" mnemonicParsing="false" onAction="#btnDeleteCategory" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);" text="Delete">
                      <font>
                         <Font name="Monospaced Bold" size="15.0" />
                      </font>
@@ -202,7 +246,7 @@
                   <Font name="Berlin Sans FB Demi Bold" size="19.0" />
                </font>
             </Button>
-            <TableView fx:id="tableViewOrder" layoutX="396.0" prefHeight="200.0" prefWidth="487.0">
+            <TableView fx:id="tableViewOrder" layoutX="396.0" prefHeight="200.0" prefWidth="487.0" style="-fx-background-color: linear-gradient(to right, #fc00ff, #00dbde);">
               <columns>
                 <TableColumn fx:id="OrderItemCl" prefWidth="274.4000549316406" text="Item" />
                 <TableColumn fx:id="OrderPriceCl" prefWidth="114.39990234375" text="Price" />
@@ -210,27 +254,27 @@
               </columns>
             </TableView>
             <ChoiceBox fx:id="choiceItem" layoutX="396.0" layoutY="218.0" prefHeight="30.0" prefWidth="184.0" value="Chose the Item" />
-            <Button fx:id="addItem" layoutX="675.0" layoutY="218.0" mnemonicParsing="false" onAction="#addItem" prefHeight="29.0" prefWidth="98.0" text="Add item">
+            <Button fx:id="addItem" layoutX="675.0" layoutY="218.0" mnemonicParsing="false" onAction="#addItem" prefHeight="29.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);" text="Add item">
                <font>
                   <Font name="Monospaced Regular" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="removeItem" layoutX="784.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="29.0" prefWidth="98.0" text="Remove">
+            <Button fx:id="removeItem" layoutX="784.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="29.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #f00000, #dc281e);" text="Remove">
                <font>
                   <Font name="Monospaced Regular" size="15.0" />
                </font>
             </Button>
-            <TextArea fx:id="note" layoutX="396.0" layoutY="257.0" prefHeight="54.0" prefWidth="480.0" promptText="Note...">
+            <TextArea fx:id="note" layoutX="396.0" layoutY="257.0" prefHeight="54.0" prefWidth="480.0" promptText="Note..." style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                <font>
                   <Font name="Monospaced Regular" size="12.0" />
                </font>
             </TextArea>
-            <Button fx:id="createOrder" layoutX="591.0" layoutY="335.0" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" prefWidth="133.0" text="Create order">
+            <Button fx:id="createOrder" layoutX="591.0" layoutY="335.0" mnemonicParsing="false" onAction="#createOrder" prefHeight="30.0" prefWidth="133.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);" text="Create order">
                <font>
                   <Font name="Monospaced Regular" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="qty" layoutX="584.0" layoutY="218.0" prefHeight="30.0" prefWidth="82.0" promptText="quantity...">
+            <TextField fx:id="qty" layoutX="584.0" layoutY="218.0" prefHeight="30.0" prefWidth="82.0" promptText="quantity..." style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
                <font>
                   <Font name="Monospaced Bold" size="12.0" />
                </font>

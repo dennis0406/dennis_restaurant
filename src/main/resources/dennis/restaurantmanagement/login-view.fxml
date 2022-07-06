@@ -5,23 +5,52 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right, #d3cce3, #e9e4f0);;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dennis.restaurantmanagement.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right, #141e30, #243b55);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dennis.restaurantmanagement.MainController">
    <children>
-      <PasswordField fx:id="ttPassword" layoutX="170.0" layoutY="236.0" prefHeight="34.0" prefWidth="259.0" promptText="Password" style="-fx-background-color: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff); -fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 4px;">
+      <TextField fx:id="ttUsername" layoutX="170.0" layoutY="173.0" prefHeight="34.0" prefWidth="259.0" promptText="Username" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
+         <font>
+            <Font name="Monospaced Regular" size="15.0" />
+         </font></TextField>
+      <PasswordField fx:id="ttPassword" layoutX="170.0" layoutY="236.0" prefHeight="34.0" prefWidth="259.0" promptText="Password" style="-fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 2px; -fx-border-width: 2;">
          <font>
             <Font size="15.0" />
          </font></PasswordField>
       <Label layoutX="234.0" layoutY="58.0" prefHeight="99.0" prefWidth="132.0" text="Login" textAlignment="JUSTIFY">
          <font>
             <Font name="Monospaced Bold" size="41.0" />
-         </font></Label>
-      <TextField fx:id="ttUsername" layoutX="170.0" layoutY="173.0" prefHeight="34.0" prefWidth="259.0" promptText="Username" style="-fx-background-color: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff); -fx-border-color: linear-gradient(to right, #bc4e9c, #f80759); -fx-border-radius: 4px;">
-         <font>
-            <Font name="Monospaced Regular" size="15.0" />
-         </font></TextField>
-      <Button fx:id="btnLogin" layoutX="230.0" layoutY="303.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" prefWidth="132.0" style="-fx-background-color: linear-gradient(to right, #bc4e9c, #f80759);;" text="Login" textFill="#0b0a0a">
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.42511009854892284" centerY="0.4280303174799139" cycleMethod="REFLECT" focusAngle="90.0" radius="0.5550458628103274">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6392157077789307" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.22880215343203225">
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6392157077789307" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.48721399730821">
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6392157077789307" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.019607843831181526" green="0.9803921580314636" blue="0.6392157077789307" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></Label>
+      <Button fx:id="btnLogin" layoutX="230.0" layoutY="303.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" prefWidth="132.0" style="-fx-background-color: linear-gradient(to right, #aaffa9, #11ffbd);;" text="Login" textFill="#0b0a0a">
          <font>
             <Font name="Monospaced Bold" size="16.0" />
          </font></Button>
@@ -30,12 +59,12 @@
             <Font name="Monospaced Regular" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="ttError1" layoutX="170.0" layoutY="144.0" prefHeight="26.0" prefWidth="86.0" text="Username" textAlignment="CENTER">
+      <Label fx:id="ttError1" layoutX="170.0" layoutY="144.0" prefHeight="26.0" prefWidth="86.0" text="Username" textAlignment="CENTER" textFill="#05faa3">
          <font>
             <Font name="Monospaced Regular" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="ttError11" layoutX="171.0" layoutY="209.0" prefHeight="26.0" prefWidth="80.0" text="Password" textAlignment="CENTER">
+      <Label fx:id="ttError11" layoutX="171.0" layoutY="209.0" prefHeight="26.0" prefWidth="80.0" text="Password" textAlignment="CENTER" textFill="#05faa3">
          <font>
             <Font name="Monospaced Regular" size="15.0" />
          </font>

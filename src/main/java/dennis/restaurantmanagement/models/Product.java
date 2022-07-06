@@ -1,6 +1,8 @@
 package dennis.restaurantmanagement.models;
 
 import dennis.restaurantmanagement.connection.DbConnect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +14,17 @@ public class Product {
     private String name;
     private String image;
     private float price;
-
+//
+//    private ImageView imageView;
+//    public ImageView getImageView() {
+//        return imageView;
+//    }
+//    public void setImageView(String url) {
+//        Image imgUrl = new Image(url);
+//        this.imageView = new ImageView(imgUrl);
+//        this.imageView.setFitWidth(100);
+//        this.imageView.setFitHeight(100);
+//    }
 
     public int getId() {
         return id;
@@ -57,6 +69,7 @@ public class Product {
         this.image = image;
         this.price = price;
         this.name_category = setName_category(id_category);
+//        setImageView(image); //Set imageview to display in tableview
     }
 
 }

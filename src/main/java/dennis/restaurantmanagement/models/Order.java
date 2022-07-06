@@ -8,6 +8,7 @@ public class Order {
     private float total;
     private LocalDateTime created;
     private String note;
+    private String status;
 
     public Order(int id, String table, float total, LocalDateTime created, String note) {
         this.id = id;
@@ -55,5 +56,13 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

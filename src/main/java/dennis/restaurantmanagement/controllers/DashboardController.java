@@ -217,13 +217,15 @@ public class DashboardController implements Initializable {
                         ttImage.setText(clickedRow.getImage());
                         ttPrice.setText(""+clickedRow.getPrice());
                         btnCreate.setText("Update");
-                        showImageClicked();
-                    } else if (row.isEmpty() || (event.getButton()== MouseButton.PRIMARY
+//                        showImageClicked();
+                    } else if (!row.isEmpty() || (event.getButton()== MouseButton.PRIMARY
                             && event.getClickCount() == 1)) {
                         btnCreate.setText("Create");
                         resetText();
                         clickedRow = row.getItem();
-                        showImageClicked();
+//                        showImageClicked();
+                    }else{
+                        btnCreate.setText("Create");
                     }
                 });
                 return row ;
@@ -234,9 +236,11 @@ public class DashboardController implements Initializable {
     }
 
     public void showImageClicked(){
+        if(clickedRow == null){
+            return;
+        }
         Image img = new Image(clickedRow.getImage());
         imgPreview.setImage(img);
-        System.out.println(clickedRow.getImage());
     }
 
 // Functions of category ===============================================================================================
@@ -377,6 +381,10 @@ public class DashboardController implements Initializable {
         selectedTable = false;
         changeBgBtn();
 
+        checkOrderExistAndShow();
+    }
+
+    private void checkOrderExistAndShow() {
         id_order = conn.getOrderId(btnSelected.getText());
         if(id_order==-1){
             //Mean this table doesn't have any order
@@ -423,28 +431,30 @@ public class DashboardController implements Initializable {
         showOrderItemTableView();
     }
     public void createOrder(ActionEvent event) {
-        int id_order = clickedRowOrder.getId_order();
-        //todo update order
+        conn.updateQuery("orders",
+                "`created` = '"+data + "', `note` = '"+note.getText()+"', `status` = 'Completed'",
+                "id = " + id_order);
+        alert("Total amount of this order is "+ conn.getTotalOrder(id_order), Alert.AlertType.INFORMATION);
+        resetValueOrder();
+        tableViewOrder.getItems().clear();
+        checkOrderExistAndShow();
     }
     public void addItem(ActionEvent event) { // Add item to order detail
         int id_prd = conn.getIdProduct((String) choiceItem.getValue());
         String qtyTxt = qty.getText();
 
         if (btnSelected == null){
-            var alert = new Alert(Alert.AlertType.WARNING, "Select the table!");
-            alert.show();
+            alert("Select the table!", Alert.AlertType.WARNING);
             return;
         }
         if(!qtyTxt.matches(PATTERN_QTY )){ // validate quantity
-            var alert = new Alert(Alert.AlertType.WARNING, "Please enter the numeric quantity!");
-            alert.show();
+            alert("Please enter the numeric quantity!", Alert.AlertType.WARNING);
             return;
         } else if (qtyTxt=="") {
             qtyTxt = "1";
         }
         if (id_prd == -1){ //validate item select
-            var alert = new Alert(Alert.AlertType.WARNING, "Please choose the item!");
-            alert.show();
+            alert("Please choose the item!", Alert.AlertType.WARNING);
             return;
         }
 
