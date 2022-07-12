@@ -1,26 +1,26 @@
 # JavaFx project - Manage the restaurant
 
 - Login screen
-![login](https://user-images.githubusercontent.com/107058157/173638013-d2e372ce-473f-4144-b50a-5f6cf3c091ed.png)
+![Screenshot 2022-07-12 232131](https://user-images.githubusercontent.com/107058157/178545233-28fb3f2c-3c9b-400d-9a14-ac83dcfe3e8f.png)
 - Dashboard screen
-![dashboard](https://user-images.githubusercontent.com/107058157/173638144-658559b2-8dba-47d3-b9a5-bb302ad3d72d.png)
+![dashboard](https://user-images.githubusercontent.com/107058157/178546477-2d58191f-f85b-4866-a00b-2901a2c3c026.png)
+- Order screen
+![additemtable](https://user-images.githubusercontent.com/107058157/178547863-d5d7ec86-82e3-4795-9501-b80498b59872.png)
 ### Project structure
-![structure](https://user-images.githubusercontent.com/107058157/173638347-c2717249-c2af-46c7-b9c0-12ff8ad61b14.png)
+![structure](https://user-images.githubusercontent.com/107058157/178545726-fee57d9d-8ef3-4c33-b810-c4e0652d8db1.png)
 - My project has 4 main packages: connectDB, controllers, models and screens
 ### Database
 - Entity Relationship Model <br/>
-![database-struture](https://user-images.githubusercontent.com/107058157/173638838-a4b24702-a3ce-46ee-a7f3-3711912b1314.png)
-  - Admin accounts Collection <br/>
-![adminTb](https://user-images.githubusercontent.com/107058157/173639377-e65d2718-c5e2-4191-8e44-eb60b7eb309c.png)
-  - Categories Collection <br/>
-![categoriesTb](https://user-images.githubusercontent.com/107058157/173639496-aefb2c95-e9a4-4050-9ec2-572b44009c39.png)
-  - Products Collection <br/>
-![productsTb](https://user-images.githubusercontent.com/107058157/173639594-2839044d-eedc-49e8-976e-7083e14ea14a.png)
+![da](https://user-images.githubusercontent.com/107058157/178546211-aa1dd386-9c2b-4a81-b0fd-bd2bbca679f6.png)
+
+
 ### Done features
 - Login, logout
+- Manage categories (Create, Update, Delete, Show)
 - Manage products (Create, Update, Delete, Show)
-### Doing features
-- Create new product according the category
+- Order food by table (add item, remove item)
+- Create new order
+
 ### Will do-features
 - Manage orders
 ### Difficults
